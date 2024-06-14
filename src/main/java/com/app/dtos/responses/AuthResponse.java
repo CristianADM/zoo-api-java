@@ -6,5 +6,6 @@ import lombok.Setter;
 @Setter
 @Getter
 public class AuthResponse {
+
     private String token;
 }

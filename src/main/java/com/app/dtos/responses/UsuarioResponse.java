@@ -10,12 +10,8 @@ import java.util.Date;
 public class UsuarioResponse {
 
     private Long id;
-
     private String correo;
-
     private Boolean estadoActivo;
-
     private Date fechaCreacion;
-
     private Date fechaModificacion;
 }
