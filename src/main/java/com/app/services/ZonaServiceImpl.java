@@ -7,6 +7,10 @@ import com.app.repositories.ZonaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class ZonaServiceImpl implements IZonaService {
 
@@ -34,5 +38,30 @@ public class ZonaServiceImpl implements IZonaService {
     @Override
     public boolean existeZonaPorNombre(String nombre) {
         return zonaRepository.existsByNombre(nombre);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<ZonaResponse> consultarTodasZonas() {
+         List<ZonaEntity> zonas = (List<ZonaEntity>) this.zonaRepository.findAll();
+
+         List<ZonaResponse> zonasResponse = new ArrayList<>();
+         zonas.forEach(zona -> {
+             zonasResponse.add(ZonaResponse.builder()
+                     .id(zona.getId())
+                     .nombre(zona.getNombre()).build());
+         });
+        return zonasResponse;
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public ZonaResponse consultarZonaPorId(Long id) {
+
+        Optional<ZonaEntity> zona = this.zonaRepository.findById(id);
+
+        return zona.map(zonaEntity -> ZonaResponse.builder()
+                .id(zonaEntity.getId())
+                .nombre(zonaEntity.getNombre()).build()).orElse(null);
     }
 }

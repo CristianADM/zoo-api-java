@@ -6,6 +6,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Setter
@@ -30,6 +31,9 @@ public class UserEntity {
 
     @Column(length = 260)
     private String token;
+
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<ComentarioEntity> comentarios;
 
     @Column(name = "estado_activo", columnDefinition = "TINYINT(1) NULL DEFAULT '1'")
     private Boolean estadoActivo;

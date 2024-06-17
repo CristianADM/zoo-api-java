@@ -4,7 +4,6 @@ import com.app.dtos.requests.AuthLoginRequest;
 import com.app.dtos.responses.AuthResponse;
 import com.app.services.AuthServiceImpl;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,8 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/v1/auth")
 public class AuthenticationController {
 
-    @Autowired
     private AuthServiceImpl userDetailsService;
+
+    public AuthenticationController(AuthServiceImpl authService) {
+        this.userDetailsService = authService;
+    }
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody AuthLoginRequest userRequest) {

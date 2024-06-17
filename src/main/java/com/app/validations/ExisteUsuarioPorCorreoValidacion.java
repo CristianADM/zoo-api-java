@@ -1,6 +1,5 @@
 package com.app.validations;
 
-import com.app.repositories.UserRepository;
 import com.app.services.IUsuarioService;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

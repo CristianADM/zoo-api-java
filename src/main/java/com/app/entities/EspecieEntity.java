@@ -7,25 +7,30 @@ import org.springframework.data.annotation.CreatedDate;
 import java.util.Date;
 import java.util.List;
 
-@Setter
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+
 @Entity
-@Table(name = "zona")
-public class ZonaEntity {
+@Table(name = "especie")
+public class EspecieEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_zona")
+    @Column(name = "id_especie")
     private Long id;
 
     @Column(nullable = false, length = 50, unique = true)
     private String nombre;
 
-    @OneToMany(mappedBy = "zona", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private List<EspecieEntity> especies;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_zona")
+    private ZonaEntity zona;
+
+    @OneToMany(mappedBy = "especie", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<AnimalEntity> animales;
 
     @Column(name = "estado_activo", columnDefinition = "TINYINT(1) NULL DEFAULT '1'")
     private Boolean estadoActivo;
